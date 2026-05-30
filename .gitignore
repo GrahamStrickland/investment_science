@@ -11,3 +11,6 @@ wheels/
 
 # VSCode files
 *.code-workspace
+
+# IPython files
+.ipynb_checkpoints
