@@ -1,0 +1,33 @@
+% Exercise 2.14
+If we compare the two methods of depreciation over a cycle of three years, we have
+for $\text{IV}$ the initial value of the asset and $\text{PV}_{\text{A}}$ and
+$\text{PV}_{\text{B}}$ the present values of that asset after three years, that
+\begin{equation*}
+    \begin{split}
+        \text{PV}_{\text{A}} 
+        &= \text{IV} \Biggl[\frac{1}{0.75} + \frac{1}{0.62} + \frac{1}{0.63}\Biggr] \\
+        &= \text{IV} \frac{0.62\cdot 0.63 + 0.75 \cdot 0.63 + 0.75 \cdot 0.62}
+            {0.75\cdot0.62\cdot0.63} \\
+        &\approx 4.53\text{IV}
+    \end{split}
+\end{equation*}
+and
+\begin{equation*}
+    \begin{split}
+        \text{PV}_{\text{B}} &= \text{IV} \frac{3}{0.\dot{6}} \\
+                             &\approx 4.50\text{IV},
+    \end{split}
+\end{equation*}
+so that the method which maximizes the present value of depreciation is the 
+alternative method, since it results in the lower present value of the asset. The
+choice does not depend on the interest rate.
+
+We have made use of the following calculation:
+\begin{lstlisting}
+>>> pv_a = (0.62 * 0.63 + 0.75 * 0.63 + 0.75 * 0.62) / (0.75 * 0.62 * 0.63)
+>>> pv_b = 3 / 0.666666666666666
+>>> print(pv_a)
+4.533538146441373
+>>> print(pv_b)
+4.500000000000004
+\end{lstlisting}
