@@ -1,0 +1,53 @@
+% Exercise 2.2
+We have
+\begin{equation*}
+    \begin{split}
+        {(1 + r)}^n &= 2 \\
+        \Leftrightarrow \ln{{(1 + r)}^n} &= \ln{2} \\
+        \Leftrightarrow n\ln{(1 + r)} &= \ln{2} \\
+        \Leftrightarrow n &= \frac{\ln{2}}{\ln{(1 + r)}}.
+    \end{split}
+\end{equation*}
+Then, applying the approximation $\ln{(1 + r)} \approx r$ for small $r$, we
+have
+\begin{equation*}
+    \begin{split}
+        n &\approx \frac{\ln{2}}{r} \\
+        &= \frac{.69}{r}.
+    \end{split}
+\end{equation*}
+Thus, using $i = 100r$, we have
+\begin{equation*}
+    \begin{split}
+        n &\approx \frac{\ln{2}}{r} \\
+        &= \frac{.69}{(i / 100)} \\
+        &= \frac{69}{i}.
+    \end{split}
+\end{equation*}
+
+Now, using the better approximation
+$\ln{(1 + r)} \approx r - \frac{1}{2}r^2$, we have for $r \approx .08$ we
+conclude that
+\begin{equation*}
+    \begin{split}
+        n &\approx \frac{\ln{2}}{r - \frac{1}{2}r^2} \\
+        &= \frac{.69}{.08 - \frac{1}{2}{.08}^2}.
+    \end{split}
+\end{equation*}
+Using the following calculation
+\begin{lstlisting}
+>>> n = 0.69 / (0.08 - (0.5 * (0.08**2)))
+>>> n
+8.984374999999998
+\end{lstlisting}
+and, for $72 / i = 72 / 100r \approx 72 / (100 \cdot .08)$, the following
+calculation
+\begin{lstlisting}
+>>> n = 0.69 / (0.08 - (0.5 * (0.08**2)))
+>>> n_approx = 72 / (100 * 0.08)
+>>> n_approx
+9.0
+>>> abs(n_approx - n)
+0.015625000000001776
+\end{lstlisting}
+we can see that $n \approx 72 / i$.

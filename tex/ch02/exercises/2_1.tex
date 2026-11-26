@@ -1,0 +1,39 @@
+% Exercise 2.1
+\begin{itemize}
+    \item[(a)] Suppose we invested \$1 in 1776 at 3.3\% interest compounded
+        yearly and we assume the current date to be 2009 (the date of
+        publication), then we have for $r = 0.033$ and
+        $n = (2009 - 1) - (1776 + 1) = 231$ years. This calculation allows for
+        the yearly interest at the start of 2009 and accounts for the fact that
+        interest only begins to accrue from 1777. Thus we have the present value
+        of the investment given by
+        \begin{equation*}
+            \begin{split}
+                \text{PV} &= {(1 + r)}^n \\
+                &= {1.033}^{231} \\
+                &\approx \$1,807.90.
+            \end{split}
+        \end{equation*}
+        We use the following to calculate the approximate value:
+        \begin{lstlisting}
+>>> from investment_science.cash_flows import growth_factor
+>>> growth_factor(0.033, 231)
+1807.899443302222
+        \end{lstlisting}
+        The closest estimate is thus \$1,000.
+    \item[(b)] If the interest rate were 6.6\% compounded annually, we would
+        have the following present value
+        \begin{equation*}
+            \begin{split}
+                \text{PV} &= {(1 + r)}^n \\
+                &= {1.066}^{231} \\
+                &\approx \$2,581,750.58,
+            \end{split}
+        \end{equation*}
+        which we calculate as follows:
+        \begin{lstlisting}
+>>> growth_factor(0.066, 231)
+2581750.581539662
+        \end{lstlisting}
+        Thus the new approximation would be \$2,581,750.58.
+\end{itemize}

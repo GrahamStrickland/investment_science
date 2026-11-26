@@ -1,0 +1,43 @@
+% Exercise 2.8
+To calculate the IRR on an incremental basis, we subtract each cash flow of
+the less expensive of the two options considered from the more expensive
+option, yielding positive cash flows for all but the initial payment. Thus we
+have the following table of cash flows:
+\begin{center}
+    \begin{tabular}{l|r|r|r}
+        & Options A vs B & Options B vs C & Options A vs C \\
+        \hline
+        $x_0$ & -24,000 & -5,000 & -29,000 \\
+        $x_1 \cdots x_4$ & 6,000 & 400 & 6,400 \\
+        $x_5$ & 10,000 & 2,000 & 12,000
+    \end{tabular}
+\end{center}
+
+Thus we have the following polynomial for considering changing from Option A
+to Option B:
+\[
+    -24,000 + 6,000c + 6,000c^2 + 6,000c^3 + 6,000c^4 + 10,000c^5,
+\]
+or, equivalently
+\[
+    p(r) = -24,000 + \frac{6,000}{1 + r} + \frac{6,000}{{(1 + r)}^2}
+    + \frac{6,000}{{(1 + r)}^3} + \frac{6,000}{{(1 + r)}^4}
+    + \frac{10,000}{{(1 + r)}^5}.
+\]
+
+Using Newton's method from Exercise 4, we have the following calculation:
+\begin{lstlisting}
+>>> from investment_science.cash_flows import irr_iterates, present_value
+>>> from investment_science.ch02.ex2_8 import A_VS_B
+>>> for r in irr_iterates(A_VS_B, 0.1, 5):
+...     print(f"r = {r}, f(r) = {present_value(A_VS_B, r)}")
+...
+r = 0.1, f(r) = 1228.405908687304
+r = 0.11770177473592071, f(r) = 45.505742594757976
+r = 0.11840909697075934, f(r) = 0.06799356632063791
+r = 0.11841015700002991, f(r) = 1.5231762517942116e-07
+r = 0.11841015700240458, f(r) = 8.185452315956354e-12
+r = 0.1184101570024047, f(r) = -6.821210263296962e-12
+\end{lstlisting}
+Thus we have $r_0 \approx 0.118$, i.e., an IRR of approximately 11.8\%,
+indicating that a change from A to B is justified on the basis of the IRR.

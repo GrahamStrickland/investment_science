@@ -1,0 +1,23 @@
+% Exercise 2.4
+Using our definition of Newton's method in \verb|newton_iterates| and the
+functions $f(\lambda) = -1 + \lambda + \lambda^2$ and
+$f'(\lambda) = 1 + 2\lambda$, given by \verb|f| and \verb|f_p|,
+respectively, we have the following estimates:
+\begin{lstlisting}
+>>> from investment_science.ch02.ex2_4 import f, f_p
+>>> from investment_science.newton import newton_iterates
+>>> for lambda_bar in newton_iterates(f, f_p, 1.0, 4):
+...     print(f"lambda_bar = {lambda_bar}, f(lambda_bar) = {f(lambda_bar)}")
+...
+lambda_bar = 1.0, f(lambda_bar) = 1.0
+lambda_bar = 0.6666666666666667, f(lambda_bar) = 0.11111111111111127
+lambda_bar = 0.6190476190476191, f(lambda_bar) = 0.0022675736961451642
+lambda_bar = 0.6180344478216818, f(lambda_bar) = 1.0265159329780893e-06
+lambda_bar = 0.618033988749989, f(lambda_bar) = 2.1066481892262345e-13
+\end{lstlisting}
+Thus we conclude that the approximation after four estimates is
+\[
+    \bar{\lambda} \approx 0.618033988749989
+\]
+and
+$f(\bar{\lambda}) \approx 2.1066481892262345 \times {10}^{-13} \approx 0$.

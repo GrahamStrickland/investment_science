@@ -1,0 +1,69 @@
+% Exercise 2.11
+For the figures in Table 2.8, we have the following two polynomials:
+\[
+    p_1(r) = -100 + \frac{30}{1 + r_1} + \frac{30}{{(1 + r_1)}^2}
+    + \frac{30}{{(1 + r_1)}^3} + \frac{30}{{(1 + r_1)}^4}
+    + \frac{30}{{(1 + r_1)}^5}
+\]
+and
+\[
+    p_2(r) = -150 + \frac{42}{1 + r_2} + \frac{42}{{(1 + r_2)}^2}
+    + \frac{42}{{(1 + r_2)}^3} + \frac{42}{{(1 + r_2)}^4}
+    + \frac{42}{{(1 + r_2)}^5},
+\]
+for $r_1$ and $r_2$ the IRR for projects 1 and 2, respectively.
+
+We calculate the IRR for each project as follows:
+\begin{lstlisting}
+>>> from investment_science.cash_flows import irr_iterates, present_value
+>>> from investment_science.ch02.ex2_11 import PROJECT_1, PROJECT_2
+>>> for r in irr_iterates(PROJECT_1, 0.1, 3):
+...     print(f"r = {r}, f(r) = {present_value(PROJECT_1, r)}")
+...
+r = 0.1, f(r) = 13.723603082253426
+r = 0.1472372314609186, f(r) = 1.2260016645453842
+r = 0.1523315514932579, f(r) = 0.011990903062502056
+r = 0.15238236619611117, f(r) = 1.1726030191283598e-06
+>>> for r in irr_iterates(PROJECT_2, 0.1, 3):
+...     print(f"r = {r}, f(r) = {present_value(PROJECT_2, r)}")
+...
+r = 0.1, f(r) = 9.213044315154796
+r = 0.12265121027339707, f(r) = 0.41147097421796275
+r = 0.123759955829251, f(r) = 0.0009084428932943922
+r = 0.12376241455663087, f(r) = 4.450185997484368e-09
+\end{lstlisting}
+Thus we have the IRR for Project 1 of approximately 15.24\% and that of
+Project 2 approximately 12.38\%.
+
+For the NPV of each project, we have the following:
+\begin{equation*}
+    \begin{split}
+        \text{PV}_1 &= \sum_{k = 0}^n{\frac{x_k}{{(1 + r)}^k}} \\
+        &= \sum_{k = 0}^5{\frac{x_k}{1.05^k}} \\
+        &\approx \$29.88,
+    \end{split}
+\end{equation*}
+and
+\begin{equation*}
+    \begin{split}
+        \text{PV}_2 &= \sum_{k = 0}^n{\frac{y_k}{{(1 + r)}^k}} \\
+        &= \sum_{k = 0}^5{\frac{y_k}{1.05^k}} \\
+        &\approx \$31.84,
+    \end{split}
+\end{equation*}
+where the coefficients of $p_1$ are given by
+$\mathbf{x} = (x_0, x_1, \ldots, x_5)$ and those of $p_2$ are given by
+$\mathbf{y} = (y_0, y_1, \ldots, y_5)$. We have made use of the following
+calculations:
+\begin{lstlisting}
+>>> present_value(PROJECT_1, 0.05)
+29.884300118924564
+>>> present_value(PROJECT_2, 0.05)
+31.83802016649439
+\end{lstlisting}
+
+The IRR calculations imply that Project 1 is the better investment, while the
+NPV calculations imply that Project 2 is the better investment. This can be
+explained by the relative magnitudes of the elements in the cash flow
+vectors, where $\mathbf{x}$ is smaller than $\mathbf{y}$ for each individual
+cash flow.

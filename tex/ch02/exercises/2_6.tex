@@ -1,0 +1,51 @@
+% Exercise 2.6
+Since the deposit of the first month's rent is nonrefundable, it has been
+paid whichever apartment the couple chooses, so that we need only compare the
+payments which remain to be made. Assuming that the couple wants to stay for
+$n = 6$ months and that rent is paid at the start of each month, staying in
+the first apartment requires the cash flow stream
+$\mathbf{x} = (0, 1000, 1000, 1000, 1000, 1000)$, while switching to the
+cheaper apartment requires the cash flow stream
+$\mathbf{z} = (900, 900, 900, 900, 900, 900)$. With a monthly interest rate
+of $r = 0.12 / 12 = 0.01$, and $k = 0, 1, \ldots, n - 1$, we have the
+following present values:
+\begin{equation*}
+    \begin{split}
+        {\text{PV}}_{\mathbf{x}} &= \sum_{k = 0}^{n - 1}{\frac{x_k}{{(1 + r)}^k}} \\
+        &= \sum_{k = 1}^5{\frac{1000}{1.01^k}} \\
+        &\approx \$4,853.43,
+    \end{split}
+\end{equation*}
+and
+\begin{equation*}
+    \begin{split}
+        {\text{PV}}_{\mathbf{z}} &= \sum_{k = 0}^{n - 1}{\frac{z_k}{{(1 + r)}^k}} \\
+        &= \sum_{k = 0}^5{\frac{900}{1.01^k}} \\
+        &\approx \$5,268.09,
+    \end{split}
+\end{equation*}
+so that the couple should not switch to the cheaper apartment.
+
+We use the following to calculate the approximate present values:
+\begin{lstlisting}
+>>> from investment_science.cash_flows import present_value
+>>> n = 6
+>>> present_value([0.0] + [1000.0] * (n - 1), 0.12 / 12)
+4853.43123932512
+>>> present_value([900.0] * n, 0.12 / 12)
+5268.088115392608
+\end{lstlisting}
+
+Assuming that the couple wants to stay for 1 year, we would have $n = 12$,
+with ${\text{PV}}_{\mathbf{x}} \approx \$10,367.63$ and
+${\text{PV}}_{\mathbf{z}} \approx \$10,230.87$, so that in this case the
+couple should switch to the cheaper apartment.
+
+We use the following to calculate the approximate present values:
+\begin{lstlisting}
+>>> n = 12
+>>> present_value([0.0] + [1000.0] * (n - 1), 0.12 / 12)
+10367.628248219477
+>>> present_value([900.0] * n, 0.12 / 12)
+10230.865423397529
+\end{lstlisting}

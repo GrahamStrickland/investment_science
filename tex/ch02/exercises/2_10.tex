@@ -1,0 +1,131 @@
+% Exercise 2.10
+\begin{itemize}
+    \item[(a)] We use the following calculations to complete the table, where
+        the columns are the year, depletion allowance, taxable income, tax, and
+        after-tax income:
+        \begin{lstlisting}
+>>> from investment_science.ch02 import ex2_10
+>>> opt1 = ex2_10.option1()
+>>> ex2_10.print_table(opt1)
+1   352,000   848,000   381,600   818,400
+2   308,000   692,000   311,400   688,600
+3   220,000   280,000   126,000   374,000
+4   100,000   100,000    45,000   155,000
+5    25,000    25,000    11,250    38,750
+>>> opt2 = ex2_10.option2()
+>>> ex2_10.print_table(opt2)
+1   400,000   800,000   360,000   840,000
+2   350,000   650,000   292,500   707,500
+3   250,000   250,000   112,500   387,500
+4   150,000    50,000    22,500   177,500
+5    50,000         0         0    50,000
+        \end{lstlisting}
+        Thus we have the following table for Option 1:
+        \begin{center}
+            \begin{adjustbox}{max width=\linewidth}
+                \begin{tabular}{r|r|r|r|r|r|r|r}
+                    & Barrels & Gross & Net & Depletion & Taxable & & After-tax \\
+                    Year & produced & revenue (\$) & income (\$) & allowance (\$) &
+                    income (\$) & Tax (\$) & income (\$) \\
+                    \hline
+                    1 & 80,000 & 1,600,000 & 1,200,000 & 352,000 & 848,000 & 381,600 & 818,400 \\
+                    2 & 70,000 & 1,400,000 & 1,000,000 & 308,000 & 692,000 & 311,400 & 688,600 \\
+                    3 & 50,000 & 1,000,000 & 500,000 & 220,000 & 280,000 & 126,000 & 374,000 \\
+                    4 & 30,000 & 600,000 & 200,000 & 100,000 & 100,000 & 45,000 & 155,000 \\
+                    5 & 10,000 & 200,000 & 50,000 & 25,000 & 25,000 & 11,250 & 38,750
+                \end{tabular}
+            \end{adjustbox}
+        \end{center}
+        The following table is for Option 2:
+        \begin{center}
+            \begin{adjustbox}{max width=\linewidth}
+                \begin{tabular}{r|r|r|r|r|r|r|r}
+                    & Barrels & Gross & Net & Depletion & Taxable & & After-tax \\
+                    Year & produced & revenue (\$) & income (\$) & allowance (\$) &
+                    income (\$) & Tax (\$) & income (\$) \\
+                    \hline
+                    1 & 80,000 & 1,600,000 & 1,200,000 & 400,000 & 800,000 & 360,000 & 840,000 \\
+                    2 & 70,000 & 1,400,000 & 1,000,000 & 350,000 & 650,000 & 292,500 & 707,500 \\
+                    3 & 50,000 & 1,000,000 & 500,000 & 250,000 & 250,000 & 112,500 & 387,500 \\
+                    4 & 30,000 & 600,000 & 200,000 & 150,000 & 50,000 & 22,500 & 177,500 \\
+                    5 & 10,000 & 200,000 & 50,000 & 50,000 & 0 & 0 & 50,000
+                \end{tabular}
+            \end{adjustbox}
+        \end{center}
+    \item[(b)] We are given an interest rate of 20\%, i.e., $r = 0.2$, and the
+        two cash flows $(x_0, x_1, \ldots, x_5)$ for Option 1 and
+        $(y_0, y_1, \ldots, y_5)$ for Option 2, where
+        $x_0 = y_0 = -\$1,000,000$ is the initial investment made at time $0$,
+        and $x_1, \ldots, x_5$ (resp. $y_1, \ldots, y_5$) are the after-tax
+        incomes of years 1 through 5. Then, we have the $\text{PV}_1$ for
+        Option 1 given by
+        \begin{equation*}
+            \begin{split}
+                \text{PV}_1 &= \sum_{k = 0}^n{\frac{x_k}{{(1 + r)}^k}} \\
+                &= \sum_{k = 0}^5{\frac{x_k}{1.2^k}} \\
+                &\approx \$466,951.61,
+            \end{split}
+        \end{equation*}
+        which we calculate as follows:
+        \begin{lstlisting}
+>>> from investment_science.cash_flows import irr_iterates, present_value
+>>> xs = ex2_10.cash_flows(opt1)
+>>> present_value(xs, 0.2)
+466951.61394032923
+        \end{lstlisting}
+        Likewise, we have $\text{PV}_2$ for Option 2 given by
+        \begin{equation*}
+            \begin{split}
+                \text{PV}_2 &= \sum_{k = 0}^n{\frac{y_k}{{(1 + r)}^k}} \\
+                &= \sum_{k = 0}^5{\frac{y_k}{1.2^k}} \\
+                &\approx \$521,260.93,
+            \end{split}
+        \end{equation*}
+        which we calculate as follows:
+        \begin{lstlisting}
+>>> ys = ex2_10.cash_flows(opt2)
+>>> present_value(ys, 0.2)
+521260.9310699589
+        \end{lstlisting}
+
+        Now, for the internal rate of return, we have from the main theorem of
+        internal rate of return that there is a unique positive root to the
+        equation
+        \[
+            0 = x_0 + x_1c + x_2c^2 + \cdots + x_5 c^5,
+        \]
+        where $\sum_{k=0}^5 x_k > 0$, and likewise for
+        $(y_0, y_1, \ldots, y_5)$. Thus, we again use Newton's method to
+        calculate the IRR for Option 1 as follows:
+        \begin{lstlisting}
+>>> for r in irr_iterates(xs, 0.1, 6):
+...     print(f"r = {r}, f(r) = {present_value(xs, r)}")
+...
+r = 0.1, f(r) = 724010.4314782271
+r = 0.34363071374584314, f(r) = 201105.8185157823
+r = 0.4742337486516006, f(r) = 27078.24616950297
+r = 0.49774257858744564, f(r) = 650.4043175782472
+r = 0.4983353999034056, f(r) = 0.39462663739323034
+r = 0.4983357600289833, f(r) = 1.453181539545767e-07
+r = 0.4983357600291159, f(r) = 8.003553375601768e-11
+        \end{lstlisting}
+        Thus the IRR for Option 1 is given by approximately 49.83\%. For
+        Option 2, we have the following:
+        \begin{lstlisting}
+>>> for r in irr_iterates(ys, 0.1, 6):
+...     print(f"r = {r}, f(r) = {present_value(ys, r)}")
+...
+r = 0.1, f(r) = 791762.5472676354
+r = 0.3526927755360726, f(r) = 228255.65886526692
+r = 0.4975663208883423, f(r) = 33681.03905641089
+r = 0.5270231574661897, f(r) = 997.096263199669
+r = 0.5279492576632379, f(r) = 0.9297593904293535
+r = 0.5279501228339057, f(r) = 8.099632395897061e-07
+r = 0.5279501228346595, f(r) = -2.091837814077735e-11
+        \end{lstlisting}
+        Thus the IRR for Option 2 is given by approximately 52.80\%.
+
+        Since Option 2 has both the greater present value at 20\% and the
+        greater internal rate of return, Option 2 is preferred under either
+        criterion.
+\end{itemize}

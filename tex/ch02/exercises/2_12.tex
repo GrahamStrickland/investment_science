@@ -1,0 +1,36 @@
+% Exercise 2.12
+If we suppose that $B_1 / A_1 > B_2 / A_2$, then we have the IRR for each of
+projects 1 and 2 given by the roots of following two polynomials:
+\[
+    p_1(c) = -A_1 + B_1c + B_1c^2 + \cdots + B_1c^n
+\]
+and
+\[
+    p_2(c) = -A_2 + B_2c + B_2c^2 + \cdots + B_2c^n.
+\]
+If we let $p_1(c_1) = 0$ and $p_2(c_2) = 0$, then we have
+\begin{equation*}
+    \begin{split}
+        p_1(c_1) &= -A_1 + B_1c_1 + B_1c_1^2 + \cdots + B_1c_1^n \\
+        &= 0 \\
+        \Leftrightarrow A_1 &= B_1c_1 + B_1c_1^2 + \cdots + B_1c_1^n \\
+        &= B_1(c_1 + c_1^2 + \cdots + c_1^n) \\
+        \Leftrightarrow \frac{A_1}{B_1} &= c_1 + c_1^2 + \cdots + c_1^n \\
+        \Leftrightarrow \frac{B_1}{A_1} &= \frac{1}{c_1 + c_1^2 + \cdots + c_1^n},
+    \end{split}
+\end{equation*}
+and, likewise,
+\[
+    \frac{B_2}{A_2} = \frac{1}{c_2 + c_2^2 + \cdots + c_2^n},
+\]
+so that
+\[
+    \frac{1}{c_1 + c_1^2 + \cdots + c_1^n}
+    > \frac{1}{c_2 + c_2^2 + \cdots + c_2^n}.
+\]
+
+By the main theorem of internal rate of return, the IRR for projects 1 and 2
+given by $r_1 = (1/c_1) - 1$ and $r_2 = (1/c_2) - 1$, respectively, are both
+unique and positive. From this we can deduce that $c_1$ and $c_2$ are both
+positive, and from the above polynomial inequality that $1/c_1 > 1/c_2$. Thus
+we have $r_1 > r_2$.

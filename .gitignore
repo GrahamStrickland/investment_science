@@ -12,5 +12,13 @@ wheels/
 # VSCode files
 *.code-workspace
 
-# IPython files
-.ipynb_checkpoints
+# macOS files
+.DS_Store
+
+# LaTeX files
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+*.out

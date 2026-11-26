@@ -1,0 +1,50 @@
+% Exercise 2.9
+Since the new roof lasts 20 years with a cost of \$20,000, we first calculate
+how much the new roof would cost, if we assume that we can continue replacing
+it every 20 years indefinitely. Thus we have the present value given by
+\begin{equation*}
+    \begin{split}
+        \text{PV}_0 &= \frac{C}{1 - {(1 + r)}^{-n}} \\
+        &= \frac{\$20,000}{1 - {(1 + 0.05)}^{-20}} \\
+        &\approx \$32,097.03,
+    \end{split}
+\end{equation*}
+which we calculate as follows:
+\begin{lstlisting}
+>>> pv_0 = 20_000 / (1 - (1.05 ** (-20)))
+>>> pv_0
+32097.034876276513
+\end{lstlisting}
+
+Since the old roof can be replaced after 5 years, we should calculate the
+present value as the present value of the new roof minus five years using the
+value $\text{PV}_0$.
+\begin{equation*}
+    \begin{split}
+        \text{PV}_5 &= \frac{\text{PV}_0}{{(1 + r)}^n} \\
+        &\approx \frac{\$32,097.03}{{(1 + 0.05)}^{5}} \\
+        &\approx \$25,148.87,
+    \end{split}
+\end{equation*}
+which we calculate as follows:
+\begin{lstlisting}
+>>> pv_5 = pv_0 / (1.05**5)
+>>> pv_5
+25148.86669161336
+\end{lstlisting}
+
+Finally, we have the value of the new roof given by the value the new roof
+purchased immediately less that of purchasing it in 5 years, and then
+continuing to purchase a new roof indefinitely. Thus we have
+\begin{equation*}
+    \begin{split}
+        \text{PV} &= \text{PV}_0 - \text{PV}_5 \\
+        &\approx \$32,097.03 - \$25,148.87 \\
+        &\approx \$6,948.17,
+    \end{split}
+\end{equation*}
+from the following:
+\begin{lstlisting}
+>>> pv_0 - pv_5
+6948.1681846631545
+\end{lstlisting}

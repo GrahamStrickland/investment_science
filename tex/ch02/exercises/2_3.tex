@@ -1,0 +1,26 @@
+% Exercise 2.3
+\begin{itemize}
+    \item[(a)] An annual rate of 3\% compounded monthly will produce an
+        increase of ${(1 + r)}^n = {(1.0025)}^{12}$, which we approximate by the
+        following
+        \begin{lstlisting}
+>>> from investment_science.cash_flows import growth_factor
+>>> growth_factor(0.03 / 12, 12)
+1.0304159569135067
+        \end{lstlisting}
+        Thus the effective rate is given by 3.04\%.
+    \item[(b)] An annual rate of 18\% compounded monthly will produce an
+        increase of ${(1.015)}^{12}$, which we approximate by the following
+        \begin{lstlisting}
+>>> growth_factor(0.18 / 12, 12)
+1.195618171461534
+        \end{lstlisting}
+        Thus the effective rate is given by 19.56\%.
+    \item[(c)] An annual rate of 18\% compounded quarterly will produce an
+        increase of ${(1.045)}^4$, which we approximate by the following
+        \begin{lstlisting}
+>>> growth_factor(0.18 / 4, 4)
+1.1925186006249997
+        \end{lstlisting}
+        Thus the effective rate is given by 19.25\%.
+\end{itemize}
